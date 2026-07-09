@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playbook Tático · Keepads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --esmeralda:#00CA9E;
+    --esmeralda-esc:#0d5f4d;
+    --preto:#0D0D0D;
+    --surface:#161719;
+    --surface-2:#1d1f21;
+    --borda:#2a2c2e;
+    --branco:#FFFFFF;
+    --muted:#9a9c9e;
+    --head:'Baloo 2', system-ui, sans-serif;
+    --body:'Source Sans 3', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--preto);
+    color:var(--branco);
+    font-family:var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px 80px}
+
+  /* HEADER */
+  header{
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--borda);
+    padding:38px 20px 34px;
+    margin-bottom:8px;
+  }
+  header .court-bg{
+    position:absolute;inset:0;opacity:.10;pointer-events:none;
+  }
+  header .inner{max-width:1120px;margin:0 auto;position:relative}
+  .wordmark{
+    font-family:var(--head);font-weight:800;font-size:20px;letter-spacing:.5px;
+    color:var(--esmeralda);text-transform:lowercase;margin-bottom:14px;display:inline-flex;align-items:center;gap:8px;
+  }
+  .wordmark::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--esmeralda);display:inline-block}
+  h1{
+    font-family:var(--head);font-weight:800;font-size:clamp(30px,6vw,46px);line-height:1.05;letter-spacing:-.5px;
+  }
+  h1 em{color:var(--esmeralda);font-style:normal}
+  .sub{color:var(--muted);font-size:17px;margin-top:10px;max-width:620px}
+  .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .pill{
+    font-family:var(--head);font-weight:600;font-size:13px;
+    background:var(--surface-2);border:1px solid var(--borda);color:var(--branco);
+    padding:6px 14px;border-radius:999px;
+  }
+  .pill b{color:var(--esmeralda)}
+
+  /* SECTIONS */
+  section{margin-top:52px}
+  .eyebrow{
+    font-family:var(--head);font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--esmeralda);margin-bottom:6px;
+  }
+  h2{font-family:var(--head);font-weight:700;font-size:26px;letter-spacing:-.3px;margin-bottom:18px}
+  .lead{color:var(--muted);font-size:16px;margin:-8px 0 22px;max-width:680px}
+
+  /* ELENCO */
+  .grid-elenco{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+  .player{
+    background:var(--surface);border:1px solid var(--borda);border-radius:14px;padding:18px;
+    position:relative;overflow:hidden;
+  }
+  .player::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--zone)}
+  .player .pos{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--zone-t)}
+  .player .nome{font-family:var(--head);font-weight:700;font-size:22px;margin:2px 0 4px}
+  .player .fis{color:var(--muted);font-size:14px;margin-bottom:12px}
+  .player .attr{font-size:14px;margin-top:6px;display:flex;gap:8px;align-items:flex-start}
+  .player .attr .ic{font-family:var(--head);font-weight:700;flex:none;width:18px}
+  .attr.forte .ic{color:var(--esmeralda)}
+  .attr.cuid .ic{color:#e0a13c}
+  .attr span{color:#cdcfd1}
+
+  /* FORMACAO */
+  .formacao{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:center}
+  .quadra-card{background:var(--surface);border:1px solid var(--borda);border-radius:16px;padding:16px}
+  .form-notas li{list-style:none;padding:12px 0;border-bottom:1px solid var(--borda);display:flex;gap:12px}
+  .form-notas li:last-child{border-bottom:none}
+  .form-notas .n{font-family:var(--head);font-weight:800;color:var(--esmeralda);font-size:18px;flex:none}
+  .form-notas b{font-family:var(--head);font-weight:600}
+  .form-notas p{color:var(--muted);font-size:14px;margin-top:2px}
+
+  /* PRINCIPIOS */
+  .grid-princ{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .princ{background:var(--surface);border:1px solid var(--borda);border-radius:14px;padding:20px}
+  .princ .num{font-family:var(--head);font-weight:800;font-size:15px;color:var(--preto);background:var(--esmeralda);width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .princ h3{font-family:var(--head);font-weight:700;font-size:17px;margin-bottom:6px}
+  .princ p{color:var(--muted);font-size:14px}
+
+  /* FILTROS */
+  .filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .filtro{
+    font-family:var(--head);font-weight:600;font-size:14px;cursor:pointer;
+    background:transparent;border:1px solid var(--borda);color:var(--muted);
+    padding:8px 16px;border-radius:999px;transition:.15s;
+  }
+  .filtro:hover{border-color:var(--esmeralda);color:var(--branco)}
+  .filtro.on{background:var(--esmeralda);border-color:var(--esmeralda);color:var(--preto)}
+
+  /* JOGADAS */
+  .grid-jogadas{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+  .jogada{
+    background:var(--surface);border:1px solid var(--borda);border-radius:14px;padding:20px;
+    display:flex;flex-direction:column;transition:.15s;
+  }
+  .jogada:hover{border-color:var(--esmeralda-esc);transform:translateY(-2px)}
+  .jogada.hide{display:none}
+  .j-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .j-num{font-family:var(--head);font-weight:800;font-size:16px;color:var(--esmeralda);border:1.5px solid var(--esmeralda-esc);width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none}
+  .j-tags{display:flex;gap:6px;flex-wrap:wrap}
+  .tag{font-family:var(--head);font-weight:600;font-size:11px;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:6px}
+  .tag.cat{background:var(--surface-2);color:var(--muted);border:1px solid var(--borda)}
+  .tag.nova{background:var(--esmeralda);color:var(--preto)}
+  .jogada h3{font-family:var(--head);font-weight:700;font-size:19px;margin-bottom:8px;line-height:1.15}
+  .jogada .desc{color:#cdcfd1;font-size:14.5px;flex:1}
+  .jogada .chave{
+    margin-top:14px;padding-top:12px;border-top:1px solid var(--borda);
+    font-size:13.5px;color:var(--esmeralda);display:flex;gap:8px;
+  }
+  .jogada .chave b{font-family:var(--head);font-weight:600;color:var(--branco);flex:none}
+
+  footer{margin-top:64px;border-top:1px solid var(--borda);padding-top:24px;color:var(--muted);font-size:13.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer .wordmark{font-size:15px;margin:0}
+
+  @media(max-width:640px){
+    .formacao{grid-template-columns:1fr}
+    .quadra-card{max-width:300px;margin:0 auto}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <svg class="court-bg" viewBox="0 0 1120 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="20" width="1080" height="160" fill="none" stroke="#00CA9E" stroke-width="2"/>
+    <line x1="560" y1="20" x2="560" y2="180" stroke="#00CA9E" stroke-width="2"/>
+    <circle cx="560" cy="100" r="52" fill="none" stroke="#00CA9E" stroke-width="2"/>
+    <rect x="20" y="60" width="70" height="80" fill="none" stroke="#00CA9E" stroke-width="2"/>
+    <rect x="1030" y="60" width="70" height="80" fill="none" stroke="#00CA9E" stroke-width="2"/>
+  </svg>
+  <div class="inner">
+    <div class="wordmark">keepads</div>
+    <h1>Playbook <em>Tático</em><br>Time de Quadra</h1>
+    <p class="sub">Estratégia montada em cima do elenco real: os pesados criam a situação, os habilidosos finalizam. Nada de corrida — a gente ganha no controle e na jogada ensaiada.</p>
+    <div class="badges">
+      <span class="pill">Formação <b>2-2</b> · Davi no gol</span>
+      <span class="pill"><b>5</b> em quadra · <b>1</b> goleiro</span>
+      <span class="pill"><b>10</b> jogadas ensaiadas</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ELENCO -->
+  <section>
+    <div class="eyebrow">O elenco</div>
+    <h2>Cada um na sua função</h2>
+    <p class="lead">A escalação joga a favor do físico e da técnica de cada um — e esconde as fraquezas nas posições certas.</p>
+    <div class="grid-elenco">
+
+      <div class="player" style="--zone:#7d7f81;--zone-t:#b9bbbd">
+        <div class="pos">Goleiro</div>
+        <div class="nome">Davi</div>
+        <div class="fis">90kg · alto · boa estrutura</div>
+        <div class="attr forte"><span class="ic">+</span><span>Tamanho fecha bem o gol</span></div>
+        <div class="attr cuid"><span class="ic">!</span><span>Não joga com o pé — só defende e devolve rápido</span></div>
+      </div>
+
+      <div class="player" style="--zone:#2f6d5c;--zone-t:#7fd7c2">
+        <div class="pos">Defesa · fixo</div>
+        <div class="nome">Kelven</div>
+        <div class="fis">85kg · base firme</div>
+        <div class="attr forte"><span class="ic">+</span><span>Corpo e marcação por posição</span></div>
+        <div class="attr cuid"><span class="ic">!</span><span>Lento e pouco fôlego — nunca em corrida aberta</span></div>
+      </div>
+
+      <div class="player" style="--zone:#2f6d5c;--zone-t:#7fd7c2">
+        <div class="pos">Defesa · muralha</div>
+        <div class="nome">Marcos</div>
+        <div class="fis">120kg · 1,90m</div>
+        <div class="attr forte"><span class="ic">+</span><span>Parede e cortina — trava com o corpo</span></div>
+        <div class="attr cuid"><span class="ic">!</span><span>Lento e pouca técnica — joga parado</span></div>
+      </div>
+
+      <div class="player" style="--zone:#00CA9E;--zone-t:#00CA9E">
+        <div class="pos">Ataque · finalizador</div>
+        <div class="nome">Thiago</div>
+        <div class="fis">leve · habilidoso</div>
+        <div class="attr forte"><span class="ic">+</span><span>Decisão e chute — o cara de finalizar</span></div>
+        <div class="attr cuid"><span class="ic">!</span><span>Poupar na marcação pra chegar inteiro na frente</span></div>
+      </div>
+
+      <div class="player" style="--zone:#00CA9E;--zone-t:#00CA9E">
+        <div class="pos">Ataque · motor</div>
+        <div class="nome">Enzo</div>
+        <div class="fis">habilidoso · não cansa</div>
+        <div class="attr forte"><span class="ic">+</span><span>Fôlego infinito — liga defesa e ataque</span></div>
+        <div class="attr cuid"><span class="ic">!</span><span>Não é pra travar corpo com os pesados deles</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FORMACAO -->
+  <section>
+    <div class="eyebrow">A formação</div>
+    <h2>2-2 · Davi no gol</h2>
+    <div class="formacao">
+      <div class="quadra-card">
+        <svg width="100%" viewBox="0 0 300 380" role="img" xmlns="http://www.w3.org/2000/svg">
+          <title>Formação 2-2</title>
+          <desc>Davi no gol, Kelven e Marcos na defesa, Thiago e Enzo no ataque.</desc>
+          <rect x="14" y="14" width="272" height="352" rx="6" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+          <line x1="14" y1="190" x2="286" y2="190" stroke="rgba(255,255,255,.14)" stroke-width="1.5"/>
+          <circle cx="150" cy="190" r="30" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.5"/>
+          <rect x="110" y="11" width="80" height="6" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+          <rect x="110" y="363" width="80" height="6" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+          <text x="150" y="34" text-anchor="middle" fill="#9a9c9e" font-family="Source Sans 3,sans-serif" font-size="11">gol adversário</text>
+
+          <!-- Thiago -->
+          <circle cx="95" cy="128" r="26" fill="#00CA9E"/>
+          <text x="95" y="124" text-anchor="middle" fill="#0D0D0D" font-family="Baloo 2,sans-serif" font-weight="700" font-size="13">Thiago</text>
+          <text x="95" y="140" text-anchor="middle" fill="#0a4b3c" font-family="Source Sans 3,sans-serif" font-size="10">ataque</text>
+          <!-- Enzo -->
+          <circle cx="205" cy="128" r="26" fill="#00CA9E"/>
+          <text x="205" y="124" text-anchor="middle" fill="#0D0D0D" font-family="Baloo 2,sans-serif" font-weight="700" font-size="13">Enzo</text>
+          <text x="205" y="140" text-anchor="middle" fill="#0a4b3c" font-family="Source Sans 3,sans-serif" font-size="10">ataque</text>
+          <!-- Kelven -->
+          <circle cx="95" cy="252" r="26" fill="#1d1f21" stroke="#00CA9E" stroke-width="1.5"/>
+          <text x="95" y="248" text-anchor="middle" fill="#fff" font-family="Baloo 2,sans-serif" font-weight="700" font-size="13">Kelven</text>
+          <text x="95" y="264" text-anchor="middle" fill="#9a9c9e" font-family="Source Sans 3,sans-serif" font-size="10">defesa</text>
+          <!-- Marcos -->
+          <circle cx="205" cy="252" r="26" fill="#1d1f21" stroke="#00CA9E" stroke-width="1.5"/>
+          <text x="205" y="248" text-anchor="middle" fill="#fff" font-family="Baloo 2,sans-serif" font-weight="700" font-size="13">Marcos</text>
+          <text x="205" y="264" text-anchor="middle" fill="#9a9c9e" font-family="Source Sans 3,sans-serif" font-size="10">defesa</text>
+          <!-- Davi -->
+          <circle cx="150" cy="325" r="26" fill="#2a2c2e" stroke="#7d7f81" stroke-width="1.5"/>
+          <text x="150" y="321" text-anchor="middle" fill="#fff" font-family="Baloo 2,sans-serif" font-weight="700" font-size="13">Davi</text>
+          <text x="150" y="337" text-anchor="middle" fill="#9a9c9e" font-family="Source Sans 3,sans-serif" font-size="10">gol</text>
+        </svg>
+      </div>
+      <ul class="form-notas">
+        <li><span class="n">01</span><div><b>Dupla de trás nunca se separa.</b><p>Kelven e Marcos jogam colados, empurrando o jogo pra fora. Se separar, o adversário entra no meio.</p></div></li>
+        <li><span class="n">02</span><div><b>Enzo é o coringa.</b><p>Quando perde a bola, ele recua e fecha o meio (vira 2-3 defensivo). Como não cansa, faz isso o jogo todo.</p></div></li>
+        <li><span class="n">03</span><div><b>Thiago fica na frente.</b><p>Não volta pra marcar — fica pronto pro contra-ataque a cada bola recuperada.</p></div></li>
+        <li><span class="n">04</span><div><b>Plano B.</b><p>Se sofrer pelo meio, Marcos volta pro gol e cai no diamante 1-2-1.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PRINCIPIOS -->
+  <section>
+    <div class="eyebrow">A base</div>
+    <h2>4 princípios do jogo</h2>
+    <div class="grid-princ">
+      <div class="princ"><div class="num">1</div><h3>Ritmo é nosso</h3><p>Controla a bola e faz eles gastarem fôlego. Jogo corrido a gente perde no físico.</p></div>
+      <div class="princ"><div class="num">2</div><h3>Tudo passa por Thiago e Enzo</h3><p>Recuperou a bola? Sai neles. É onde a gente é melhor que o adversário.</p></div>
+      <div class="princ"><div class="num">3</div><h3>Lento joga por posição</h3><p>Davi, Kelven e Marcos nunca entram numa corrida de 40 metros. Ganham no corpo, não na perna.</p></div>
+      <div class="princ"><div class="num">4</div><h3>Defende compacto</h3><p>Bloco fechado no meio, empurrando o adversário pra lateral, onde tem menos espaço.</p></div>
+    </div>
+  </section>
+
+  <!-- JOGADAS -->
+  <section>
+    <div class="eyebrow">O arsenal</div>
+    <h2>10 jogadas ensaiadas</h2>
+    <p class="lead">Cada uma tem número — o time chama pelo número em quadra. Comece treinando a 1 e a 2; são as que mais aproveitam o elenco.</p>
+
+    <div class="filtros">
+      <button class="filtro on" data-f="todas">Todas</button>
+      <button class="filtro" data-f="ataque">Ataque</button>
+      <button class="filtro" data-f="parada">Bola parada</button>
+      <button class="filtro" data-f="transicao">Transição</button>
+      <button class="filtro" data-f="defesa">Defesa</button>
+    </div>
+
+    <div class="grid-jogadas">
+
+      <div class="jogada" data-cat="ataque">
+        <div class="j-top"><div class="j-num">1</div><div class="j-tags"><span class="tag cat">Ataque</span></div></div>
+        <h3>Cortina no Marcos</h3>
+        <p class="desc">Marcos vira um poste parado no meio. Thiago vem com a bola e passa colado nele — o marcador trava no Marcos e o Thiago sai livre pro chute. Enzo espera o rebote.</p>
+        <div class="chave"><b>Chave:</b> Marcos só fica plantado, não corre.</div>
+      </div>
+
+      <div class="jogada" data-cat="transicao">
+        <div class="j-top"><div class="j-num">2</div><div class="j-tags"><span class="tag cat">Transição</span></div></div>
+        <h3>Contra-ataque "solta o Thiago"</h3>
+        <p class="desc">No segundo que a gente rouba a bola, sai vertical e direto no Thiago, que ficou adiantado. Enzo dispara junto de apoio. Vira 2 contra 1.</p>
+        <div class="chave"><b>Chave:</b> a jogada que mais ganha jogo.</div>
+      </div>
+
+      <div class="jogada" data-cat="parada">
+        <div class="j-top"><div class="j-num">3</div><div class="j-tags"><span class="tag cat">Bola parada</span></div></div>
+        <h3>Escanteio na torre</h3>
+        <p class="desc">Enzo bate firme na altura do Marcos, plantado na frente do gol. Ele desvia ou causa bagunça; Thiago fica de tocaia pro rebote. Kelven segura o contra atrás.</p>
+        <div class="chave"><b>Chave:</b> usa os 1,90m do Marcos como arma.</div>
+      </div>
+
+      <div class="jogada" data-cat="transicao">
+        <div class="j-top"><div class="j-num">4</div><div class="j-tags"><span class="tag cat">Transição</span></div></div>
+        <h3>Saída de bola curta</h3>
+        <p class="desc">Nada de chutão pro alto (perde a segunda bola no físico). Davi toca curto e rasteiro no Enzo em movimento, que recebe de frente e conduz. Os pesados abrem só pra puxar marcador.</p>
+        <div class="chave"><b>Chave:</b> construir, não apostar na sorte.</div>
+      </div>
+
+      <div class="jogada" data-cat="parada">
+        <div class="j-top"><div class="j-num">5</div><div class="j-tags"><span class="tag cat">Bola parada</span></div></div>
+        <h3>Lateral em tabela</h3>
+        <p class="desc">Enzo toca no Thiago e já pede de volta correndo pra frente (parede de primeira). Marcos fica de poste no meio pra travar quem tentar seguir o Enzo.</p>
+        <div class="chave"><b>Chave:</b> de primeira, sem deixar eles se posicionarem.</div>
+      </div>
+
+      <div class="jogada" data-cat="ataque">
+        <div class="j-top"><div class="j-num">6</div><div class="j-tags"><span class="tag cat">Ataque</span><span class="tag nova">Nova</span></div></div>
+        <h3>Rodízio de alas</h3>
+        <p class="desc">Thiago e Enzo trocam de lado em movimento cruzado no meio-campo. A troca embaralha a marcação e quase sempre libera um deles no 1 contra 1 pra decidir.</p>
+        <div class="chave"><b>Chave:</b> confunde a marcação sem exigir força.</div>
+      </div>
+
+      <div class="jogada" data-cat="parada">
+        <div class="j-top"><div class="j-num">7</div><div class="j-tags"><span class="tag cat">Bola parada</span><span class="tag nova">Nova</span></div></div>
+        <h3>Barreira dupla</h3>
+        <p class="desc">No tiro livre frontal, Marcos e Kelven ficam colados na frente da bola tampando a visão do goleiro. Enzo rola de lado e o Thiago bate no cantinho aberto.</p>
+        <div class="chave"><b>Chave:</b> dois corpões viram uma parede humana.</div>
+      </div>
+
+      <div class="jogada" data-cat="ataque">
+        <div class="j-top"><div class="j-num">8</div><div class="j-tags"><span class="tag cat">Ataque</span><span class="tag nova">Nova</span></div></div>
+        <h3>Pivô de costas no Marcos</h3>
+        <p class="desc">Sem contra-ataque, a bola vai no Marcos de costas na entrada da área. Ele segura com o corpo (não precisa driblar) e Thiago e Enzo giram ao redor pra receber o toque de lado.</p>
+        <div class="chave"><b>Chave:</b> Marcos protege a bola, os rápidos giram.</div>
+      </div>
+
+      <div class="jogada" data-cat="defesa">
+        <div class="j-top"><div class="j-num">9</div><div class="j-tags"><span class="tag cat">Defesa</span><span class="tag nova">Nova</span></div></div>
+        <h3>Pressão-armadilha do Enzo</h3>
+        <p class="desc">Enzo pressiona sozinho um lado só pra induzir o adversário a jogar pra onde a gente quer. Kelven e Marcos já esperam ali pra roubar — e sai o contra na hora.</p>
+        <div class="chave"><b>Chave:</b> o fôlego infinito do Enzo arma a cilada.</div>
+      </div>
+
+      <div class="jogada" data-cat="ataque">
+        <div class="j-top"><div class="j-num">10</div><div class="j-tags"><span class="tag cat">Ataque</span><span class="tag nova">Nova</span></div></div>
+        <h3>Isca do Thiago</h3>
+        <p class="desc">Thiago finge o disparo pra frente e puxa o zagueiro atrás dele. O espaço que abre por dentro é usado pelo Enzo, que infiltra e recebe no buraco pra finalizar.</p>
+        <div class="chave"><b>Chave:</b> um serve de isca pro outro decidir.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <span class="wordmark">keepads</span>
+    <span>Playbook Tático · Time de Quadra · formação 2-2</span>
+  </footer>
+
+</div>
+
+<script>
+  const botoes = document.querySelectorAll('.filtro');
+  const cards = document.querySelectorAll('.jogada');
+  botoes.forEach(b=>{
+    b.addEventListener('click',()=>{
+      botoes.forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      const f = b.dataset.f;
+      cards.forEach(c=>{
+        c.classList.toggle('hide', f!=='todas' && c.dataset.cat!==f);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
